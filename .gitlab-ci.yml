@@ -14,9 +14,9 @@ before_script: &global_before_scripts
   - ".ci/note.sh"
   - apk upgrade -U
   - "adduser -D build"
-  # Force IPv4 for gitlab.postmarketos.org until it supports IPv6 too, OSUOSL is
+  # Force IPv4 for gitlab.nura.eco until it supports IPv6 too, OSUOSL is
   # working on it (infra#195)
-  - "echo '140.211.167.182 gitlab.postmarketos.org' >> /etc/hosts"
+  - "echo '140.211.167.182 gitlab.nura.eco' >> /etc/hosts"
   # python 3.10 tests: need to have tomli installed, see pmb/helpers/toml.py
   - "if grep -q VERSION_ID=3\\.17 /etc/os-release; then apk add py3-tomli; fi"
 
@@ -115,7 +115,7 @@ mr-settings:
   before_script:
     - *global_before_scripts
     - "apk -q add python3"
-    - "wget -q 'https://gitlab.postmarketos.org/postmarketOS/ci-common/-/raw/main/check_mr_settings.py'"
+    - "wget -q 'https://gitlab.nura.eco/nura/ci-common/-/raw/main/check_mr_settings.py'"
   script:
     - "python3 ./check_mr_settings.py"
 
@@ -156,10 +156,10 @@ docs:
 deploy-docs:
   stage: deploy
   trigger:
-    project: postmarketOS/docs.nura.eco
+    project: nura/docs.nura.eco
     strategy: depend
   rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_PROJECT_NAMESPACE == "postmarketOS"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_PROJECT_NAMESPACE == "nura"
       changes:
         - docs/**/*
         - "pmb/**/*.py"
