@@ -103,15 +103,15 @@ def get(
 
 
 @Cache("pkgname", "arch")
-def depends_recurse(pkgname: str, arch: Arch) -> list[str]:
+def depends_recurse(pkgname: str, arch: Arch) -> set[str]:
     """
     Recursively resolve all of the package's dependencies.
 
     :param pkgname: name of the package (e.g. "device-samsung-i9100")
     :param arch: preferred architecture for binary packages
-    :returns: a list of pkgname_start and all its dependencies, e.g:
-        ["busybox-static-armhf", "device-samsung-i9100",
-        "linux-samsung-i9100", ...]
+    :returns: a set of pkgname_start and all its dependencies, e.g:
+        {"busybox-static-armhf", "device-samsung-i9100",
+        "linux-samsung-i9100", ...}
     """
     # Build ret (by iterating over the queue)
     queue = {pkgname}
@@ -131,4 +131,4 @@ def depends_recurse(pkgname: str, arch: Arch) -> list[str]:
         alternative_names.update(package.provides)
         alternative_names.add(pkgname)
 
-    return sorted(ret)
+    return ret

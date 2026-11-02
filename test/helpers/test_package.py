@@ -99,7 +99,7 @@ def test_depends_recurse_providers(monkeypatch: MonkeyPatch) -> None:
 
     monkeypatch.setattr(pmb.helpers.package, "get", _get_package)
     depends = depends_recurse("device-oneplus-fajita", Arch.aarch64)
-    assert depends == ["device-oneplus-fajita", "glib", "musl"]
+    assert depends == {"device-oneplus-fajita", "glib", "musl"}
 
 
 def test_depends_recurse_alternative_names(monkeypatch: MonkeyPatch) -> None:
@@ -146,4 +146,4 @@ def test_depends_recurse_alternative_names(monkeypatch: MonkeyPatch) -> None:
 
     monkeypatch.setattr(pmb.helpers.package, "get", _get_package)
     depends = depends_recurse("systemd-stage0", Arch.aarch64)
-    assert depends == ["dbus", "systemd-stage0"]
+    assert depends == {"dbus", "systemd-stage0"}
